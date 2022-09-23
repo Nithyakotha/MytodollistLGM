@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <link rel="stylesheet"  type="text/css" href="styles.css">
+    <script>
+      var myNodelist = document.getElementsByTagName("LI");
+      var i;
+      for (i = 0; i < myNodelist.length; i++) {
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\U+1F5D1");
+        span.className = "close";
+        span.appendChild(txt);
+        myNodelist[i].appendChild(span);
+      }
+      var close = document.getElementsByClassName("close");
+      var i;
+      for (i = 0; i < close.length; i++) {
+        close[i].onclick = function () {
+          var div = this.parentElement;
+          div.style.display = "none";
+        };
+      }
+
+      var list = document.querySelector("ul");
+      list.addEventListener(
+        "click",
+        function (ev) {
+          if (ev.target.tagName === "LI") {
+            ev.target.classList.toggle("checked");
+          }
+        },
+        false
+      );
+
+      function newElement() {
+        var li = document.createElement("li");
+        var inputValue = document.getElementById("my-input").value;
+        var t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        if (inputValue === "") {
+          alert("You must write something to add into the list!");
+        } else {
+          document.getElementById("myUL").appendChild(li);
+        }
+        document.getElementById("my-input").value = "";
+
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("🗑");
+        span.className = "close";
+        span.appendChild(txt);
+        li.appendChild(span);
+
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function () {
+            var div = this.parentElement;
+            div.style.display = "none";
+          };
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <br /><br />
+    <div id="first-div" class="header">
+      <h1>My To Do List</h1>
+      <br />
+      <input type="text" id="my-input" placeholder="Title..." />
+      <span onclick="newElement()" class="addBtn">Add</span>
+      <br />
+    </div>
+    <br /><br />
+    <br /><br />
+    <ul id="myUL">
+      <li> Important thing to be added.</li>
+    </ul>
+  </body>
+</html>
